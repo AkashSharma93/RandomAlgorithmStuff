@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.omg.CORBA.portable.Streamable;
 import org.xml.sax.SAXException;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +14,8 @@ import static org.junit.Assert.*;
  */
 public class BSTTest {
     private BST<Integer, String> bst;
+    private BST<Integer, Integer> bstInt;
+    private int[] arr = {5, 3, 7, 10, 0, 14};
 
     @Before
     public void setUp() throws Exception {
@@ -21,6 +25,9 @@ public class BSTTest {
         root.right = new Node<>(10, "Ten", 2);
         root.right.left = new Node<>(9, "Nine", 1);
         bst = new BST<>(root);
+
+        bstInt = new BST<>();
+        for (int a: arr) bstInt.put(a, a);
     }
 
     @Test
@@ -89,10 +96,7 @@ public class BSTTest {
     @Test
     public void size() throws Exception {
         assertEquals(5, this.bst.size());
-        BST<Integer, Integer> bst2 = new BST<>();
-        int[] arr = {5, 3, 7, 10, 0, 14};
-        for (int a: arr) bst2.put(a, a);
-        assertEquals(6, bst2.size());
+        assertEquals(6, this.bstInt.size());
     }
 
     @Test
@@ -102,6 +106,15 @@ public class BSTTest {
         assertEquals(5, this.bst.rank(11));
         assertEquals(0, this.bst.rank(1));
         assertEquals(4, this.bst.rank(10));
+    }
+
+    @Test
+    public void inOrderTraverse() throws Exception {
+        Arrays.sort(this.arr);
+        int index = 0;
+        for (int item: this.bstInt.keys()) {
+            assertEquals(this.arr[index++], item);
+        }
     }
 
 }

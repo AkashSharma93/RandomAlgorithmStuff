@@ -1,5 +1,9 @@
 package BinarySearchTrees;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by akash on 10/08/17.
  */
@@ -113,5 +117,18 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (cmp == 0) return this.size(node.left);
         if (cmp < 0)  return this.rank(node.left, key);
         else          return 1 + this.size(node.left) + this.rank(node.right, key);
+    }
+
+    public Iterable<Key> keys() {
+        List<Key> list = new ArrayList<>();
+        inorder(this.root, list);
+        return list;
+    }
+
+    private void inorder(Node<Key, Value> node, List<Key> list) {
+        if (node == null) return;
+        inorder(node.left, list);
+        list.add(node.key);
+        inorder(node.right, list);
     }
 }
