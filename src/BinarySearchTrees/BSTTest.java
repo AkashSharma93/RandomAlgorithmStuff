@@ -2,6 +2,8 @@ package BinarySearchTrees;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.portable.Streamable;
+import org.xml.sax.SAXException;
 
 import static org.junit.Assert.*;
 
@@ -40,7 +42,7 @@ public class BSTTest {
         assertEquals("NewRoot", this.bst.get(5));
     }
 
-    @org.junit.Test
+    @Test
     public void get() throws Exception {
         assertEquals("Five", this.bst.get(5));
         assertEquals(null, this.bst.get(1000));
@@ -48,6 +50,40 @@ public class BSTTest {
         assertEquals("Three", this.bst.get(3));
         assertEquals("Ten", this.bst.get(10));
         assertEquals("Nine", this.bst.get(9));
+    }
+
+    @Test
+    public void min() throws Exception {
+        Node<Integer, String> minNode = this.bst.min();
+        assertEquals(minNode.key.intValue(), 1);
+        assertEquals(minNode.value, "One");
+    }
+
+    @Test
+    public void max() throws Exception {
+        Node<Integer, String> maxNode = this.bst.max();
+        assertEquals(maxNode.key.intValue(), 10);
+        assertEquals(maxNode.value, "Ten");
+    }
+
+    @Test
+    public void floor() throws Exception {
+        int key = this.bst.floor(10);
+        assertEquals(key, 10);
+        assertEquals(this.bst.get(key), "Ten");
+        assertEquals(this.bst.floor(11).intValue(), 10);
+        assertEquals(this.bst.floor(0), null);
+        assertEquals(this.bst.floor(6).intValue(), 5);
+    }
+
+    @Test
+    public void ceiling() throws Exception {
+        int key = this.bst.ceiling(3);
+        assertEquals(key, 3);
+        assertEquals(this.bst.get(key), "Three");
+        assertEquals(this.bst.ceiling(0).intValue(), 1);
+        assertEquals(this.bst.ceiling(11), null);
+        assertEquals(this.bst.ceiling(4).intValue(), 5);
     }
 
 }
