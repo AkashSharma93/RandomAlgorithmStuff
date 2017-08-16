@@ -6,6 +6,8 @@ package BinarySearchTrees;
 public class BST<Key extends Comparable<Key>, Value> {
     private Node<Key, Value> root;
 
+    public BST() {}
+
     public BST(Node<Key, Value> root) {
         this.root = root;
     }
@@ -31,11 +33,12 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     private Node<Key, Value> put(Node<Key, Value> node, Key key, Value value) {
-        if (node == null) return new Node<>(key, value);
+        if (node == null) return new Node<>(key, value, 1);
         int cmp = key.compareTo(node.key);
         if (cmp < 0) node.left = put(node.left, key, value);
         if (cmp > 0) node.right = put(node.right, key, value);
         else         node.value = value;
+        node.count = 1 + size(node.left) + size(node.right);
         return node;
     }
 
@@ -89,5 +92,14 @@ public class BST<Key extends Comparable<Key>, Value> {
         Node<Key, Value> temp = this.ceiling(node.left, key);
         if (temp == null) return node;
         else              return temp;
+    }
+
+    public int size() {
+        return this.size(this.root);
+    }
+
+    private int size(Node<Key, Value> node) {
+        if (node == null) return 0;
+        return node.count;
     }
 }

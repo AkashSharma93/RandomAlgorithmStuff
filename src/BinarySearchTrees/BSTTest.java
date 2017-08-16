@@ -15,17 +15,17 @@ public class BSTTest {
 
     @Before
     public void setUp() throws Exception {
-        Node<Integer, String> root = new Node<>(5, "Five");
-        root.left = new Node<>(1, "One");
-        root.left.right = new Node<>(3, "Three");
-        root.right = new Node<>(10, "Ten");
-        root.right.left = new Node<>(9, "Nine");
+        Node<Integer, String> root = new Node<>(5, "Five", 5);
+        root.left = new Node<>(1, "One", 2);
+        root.left.right = new Node<>(3, "Three", 1);
+        root.right = new Node<>(10, "Ten", 2);
+        root.right.left = new Node<>(9, "Nine", 1);
         bst = new BST<>(root);
     }
 
     @Test
     public void bstCreate() throws Exception  {
-        Node<Integer, String> root = new Node<>(6, "Six");
+        Node<Integer, String> root = new Node<>(6, "Six", 1);
         this.bst = new BST<>(root);
         assertEquals(this.bst.getRoot(), root);
     }
@@ -84,6 +84,15 @@ public class BSTTest {
         assertEquals(this.bst.ceiling(0).intValue(), 1);
         assertEquals(this.bst.ceiling(11), null);
         assertEquals(this.bst.ceiling(4).intValue(), 5);
+    }
+
+    @Test
+    public void size() throws Exception {
+        assertEquals(this.bst.size(), 5);
+        BST<Integer, Integer> bst2 = new BST<>();
+        int[] arr = {5, 3, 7, 10, 0, 14};
+        for (int a: arr) bst2.put(a, a);
+        assertEquals(bst2.size(), 6);
     }
 
 }
