@@ -55,44 +55,53 @@ public class BSTTest {
     @Test
     public void min() throws Exception {
         Node<Integer, String> minNode = this.bst.min();
-        assertEquals(minNode.key.intValue(), 1);
-        assertEquals(minNode.value, "One");
+        assertEquals(1, minNode.key.intValue());
+        assertEquals("One", minNode.value);
     }
 
     @Test
     public void max() throws Exception {
         Node<Integer, String> maxNode = this.bst.max();
-        assertEquals(maxNode.key.intValue(), 10);
-        assertEquals(maxNode.value, "Ten");
+        assertEquals(10, maxNode.key.intValue());
+        assertEquals("Ten", maxNode.value);
     }
 
     @Test
     public void floor() throws Exception {
         int key = this.bst.floor(10);
-        assertEquals(key, 10);
-        assertEquals(this.bst.get(key), "Ten");
-        assertEquals(this.bst.floor(11).intValue(), 10);
-        assertEquals(this.bst.floor(0), null);
-        assertEquals(this.bst.floor(6).intValue(), 5);
+        assertEquals(10, key);
+        assertEquals("Ten", this.bst.get(key));
+        assertEquals(10, this.bst.floor(11).intValue());
+        assertEquals(null, this.bst.floor(0));
+        assertEquals(5, this.bst.floor(6).intValue());
     }
 
     @Test
     public void ceiling() throws Exception {
         int key = this.bst.ceiling(3);
-        assertEquals(key, 3);
-        assertEquals(this.bst.get(key), "Three");
-        assertEquals(this.bst.ceiling(0).intValue(), 1);
-        assertEquals(this.bst.ceiling(11), null);
-        assertEquals(this.bst.ceiling(4).intValue(), 5);
+        assertEquals(3, key);
+        assertEquals("Three", this.bst.get(key));
+        assertEquals(1, this.bst.ceiling(0).intValue());
+        assertEquals(null, this.bst.ceiling(11));
+        assertEquals(5, this.bst.ceiling(4).intValue());
     }
 
     @Test
     public void size() throws Exception {
-        assertEquals(this.bst.size(), 5);
+        assertEquals(5, this.bst.size());
         BST<Integer, Integer> bst2 = new BST<>();
         int[] arr = {5, 3, 7, 10, 0, 14};
         for (int a: arr) bst2.put(a, a);
-        assertEquals(bst2.size(), 6);
+        assertEquals(6, bst2.size());
+    }
+
+    @Test
+    public void rank() throws Exception {
+        assertEquals(2, this.bst.rank(5));
+        assertEquals(0, this.bst.rank(0));
+        assertEquals(5, this.bst.rank(11));
+        assertEquals(0, this.bst.rank(1));
+        assertEquals(4, this.bst.rank(10));
     }
 
 }
